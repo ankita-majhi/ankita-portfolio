@@ -1,0 +1,10 @@
+﻿const fs = require('node:fs');
+let readme = fs.readFileSync('README.md','utf8');
+readme = readme.replace('An original editorial portfolio in ivory, ink, and electric lime,','A clean professional portfolio in white, slate, and blue,');
+readme = readme.replace('switch between lime and lavender','switch between blue and muted indigo');
+readme = readme.replace('Floating code artwork, a continuous marquee, scroll reveals, and pointer-sensitive cards.','Subtle floating code artwork, gentle scroll reveals, and pointer-sensitive cards.');
+readme = readme.replace('Typography uses DM Sans, DM Serif Display, and Space Mono via Google Fonts, with system fallbacks.','Typography uses DM Sans with system fallbacks, 16–18px body text, and clear section headings. Decorative captions are kept to a minimum.');
+fs.writeFileSync('README.md',readme.replace(/^\uFEFF/,''));
+let check = fs.readFileSync('preview-check.cjs','utf8');
+check = check.replace("await page.screenshot({ path: 'artifacts/mobile-hero.png' });", "await page.goto('http://localhost:3000', { waitUntil: 'networkidle' });\n  await page.evaluate(() => document.fonts.ready);\n  await page.screenshot({ path: 'artifacts/mobile-hero.png' });");
+fs.writeFileSync('preview-check.cjs',check.replace(/^\uFEFF/,''));
